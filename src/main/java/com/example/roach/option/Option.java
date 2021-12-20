@@ -6,7 +6,15 @@ import javax.persistence.*;
 @Table
 public class Option {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @SequenceGenerator(
+            name = "option_sequence",
+            sequenceName = "option_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "option_sequence"
+    )
     private Long id;
 
     private String description;
