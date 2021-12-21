@@ -24,15 +24,19 @@ public class ServiceLog {
     private Long carId;
     private LocalDate entryDate;
     private LocalDate exitDate;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "service_log_id"),
+            inverseJoinColumns = @JoinColumn(name = "log_id")
+    )
     private List<Option> log;
 
     public ServiceLog() {
     }
 
-    public ServiceLog(Long carId ,List<Option> log, LocalDate entryDate, LocalDate exitDate) {
+    public ServiceLog(Long carId ,LocalDate entryDate, LocalDate exitDate) {
         this.carId = carId;
-        this.log = log;
+//        this.log = log;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
     }

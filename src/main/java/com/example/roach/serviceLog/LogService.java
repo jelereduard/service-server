@@ -1,5 +1,6 @@
 package com.example.roach.serviceLog;
 
+import com.example.roach.option.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,17 @@ public class LogService {
         } else {
             throw new IllegalStateException("log with id: " + logId + " does not exist");
         }
+    }
+
+    public void addOptionToLog(Long logId, Option option) {
+        ServiceLog serviceLog = logRepository.findById(logId).get();
+        System.out.println("------------ option ---------------------------" + serviceLog);
+        List<Option> options = serviceLog.getLog();
+        System.out.println("------------ option ---------------------------" + options);
+        options.add(option);
+        System.out.println("------------ option ---------------------------" + options);
+        serviceLog.setLog(options);
+
+        logRepository.save(serviceLog);
     }
 }

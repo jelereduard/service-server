@@ -1,6 +1,10 @@
 package com.example.roach.option;
 
+import com.example.roach.serviceLog.ServiceLog;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -19,6 +23,10 @@ public class Option {
 
     private String description;
     private Double price;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "log")
+    List<ServiceLog> serviceLogs;
 
     public Option() {
     }

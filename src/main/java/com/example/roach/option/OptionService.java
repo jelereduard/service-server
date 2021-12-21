@@ -3,6 +3,7 @@ package com.example.roach.option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,5 +21,9 @@ public class OptionService {
 
     public void addOption(Option option) {
         optionRepository.save(option);
+    }
+
+    public Option getOptionById(Long optionId) {
+        return optionRepository.getById(optionId);
     }
 }
