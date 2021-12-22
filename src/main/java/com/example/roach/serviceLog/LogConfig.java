@@ -7,20 +7,28 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class LogConfig {
     private OptionRepository optionRepository;
+    int k;
+    List<ServiceLog> serviceLogs;
+
+    void popList() {
+        serviceLogs = new ArrayList<>();
+        for( k = 1; k<30; k++) {
+            serviceLogs.add(new ServiceLog(Long.parseLong(String.valueOf(k)),LocalDate.of(2020,6,25),
+                    LocalDate.now()));
+        }
+    }
     @Bean
     CommandLineRunner commandLineRunner(LogRepository repository) {
+        popList();
         return args -> {
-            ServiceLog log1 = new ServiceLog(
-                    1L,
-                    LocalDate.of(2020,6,25),
-                    LocalDate.now()
-            );
-            repository.saveAll(Arrays.asList(log1));
+            repository.saveAll(serviceLogs);
         };
     }
 }

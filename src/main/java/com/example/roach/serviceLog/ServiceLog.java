@@ -36,7 +36,6 @@ public class ServiceLog {
 
     public ServiceLog(Long carId ,LocalDate entryDate, LocalDate exitDate) {
         this.carId = carId;
-//        this.log = log;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
     }
