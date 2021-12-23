@@ -1,11 +1,9 @@
 package com.example.roach.serviceLog;
 
-import com.example.roach.option.Option;
 import com.example.roach.option.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +25,9 @@ public class LogController {
         return logService.getLogs();
     }
 
-    @PostMapping
-    public void registerNewLog(@RequestBody ServiceLog serviceLog) {
-        logService.createLog(serviceLog);
+    @PostMapping(path = "car/{carId}")
+    public void registerNewLog(@PathVariable Long carId) {
+        logService.createLog(carId);
     }
 
     @DeleteMapping(path = "{logId}")
@@ -37,12 +35,6 @@ public class LogController {
         logService.deleteLog(logId);
     }
 
-//    @PutMapping(path = "{logId}/option/{optionId}")
-//    public void addOptionToLog(@PathVariable Long logId, @PathVariable Long optionId) {
-//        Option option = optionService.getOptionById(optionId);
-//        System.out.println("------------ option ---------------------------" + option);
-//        logService.addOptionToLog(logId, option);
-//    }
     @PutMapping(path = "{logId}")
     public void addOptionsToLog(@PathVariable Long logId, @RequestBody Map<String, String> map) {
         logService.addOptionsToLog(logId,optionService, map);

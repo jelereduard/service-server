@@ -5,6 +5,7 @@ import com.example.roach.option.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,12 +28,9 @@ public class LogService {
         return logRepository.findLogByCarId(id).get();
     }
 
-    public void createLog(ServiceLog serviceLog) {
-        if (logRepository.existsById(serviceLog.getId())) {
-            logRepository.getById(serviceLog.getId()).setLog(serviceLog.getLog());
-        } else {
+    public void createLog(Long carId) {
+        ServiceLog serviceLog = new ServiceLog(carId, LocalDate.now(),LocalDate.now().plusDays(2));
             logRepository.save(serviceLog);
-        }
     }
 
     public void deleteLog(Long logId) {
@@ -45,11 +43,8 @@ public class LogService {
 
     public void addOptionToLog(Long logId, Option option) {
         ServiceLog serviceLog = logRepository.findById(logId).get();
-        System.out.println("------------ option ---------------------------" + serviceLog);
         List<Option> options = serviceLog.getLog();
-        System.out.println("------------ option ---------------------------" + options);
         options.add(option);
-        System.out.println("------------ option ---------------------------" + options);
         serviceLog.setLog(options);
 
         logRepository.save(serviceLog);
